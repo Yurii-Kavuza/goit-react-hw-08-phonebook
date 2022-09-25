@@ -5,7 +5,7 @@ const Filter = ({ onFilter, value }) => (
   <div>
     <Label>
       Find contacts by name
-      <input type="text" name="filter" value={value} onChange={onFilter} />
+      <input type="text" name="filter" value={value} onChange={onFilter} autoComplete="off"/>
     </Label>
   </div>
 );
