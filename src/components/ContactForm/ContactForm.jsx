@@ -3,8 +3,6 @@ import { Formik, Field, ErrorMessage } from 'formik';
 import * as yup from 'yup';
 import { Button, Label, FormBox } from './ContactForm.styled';
 
-const initialValues = { name: '', number: '' };
-
 class ContactForm extends Component {
   schema = yup.object().shape({
     name: yup.string().required(),
