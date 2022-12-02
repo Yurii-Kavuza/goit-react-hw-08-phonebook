@@ -11,7 +11,9 @@ const LS_KEY = 'contacts';
 const App = () => {
   const contactsLS = JSON.parse(window.localStorage.getItem(LS_KEY));
 
-  const [contacts, setContacts] = useState(() => { contactsLS ?? [] });
+  const [contacts, setContacts] = useState(() => {
+    return contactsLS ?? [];
+  });
   const [filter, setFilter] = useState('');
 
   const filteredContacts = () => {
