@@ -9,9 +9,9 @@ import Filter from './Filter';
 const LS_KEY = 'contacts';
 
 const App = () => {
-  const contactsLS = JSON.parse(localStorage.getItem(LS_KEY));
+  const contactsLS = JSON.parse(window.localStorage.getItem(LS_KEY));
 
-  const [contacts, setContacts] = useState(contactsLS ?? []);
+  const [contacts, setContacts] = useState(() => { contactsLS ?? [] });
   const [filter, setFilter] = useState('');
 
   const filteredContacts = () => {
