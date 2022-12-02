@@ -37,7 +37,7 @@ const App = () => {
     if (containsNamee) {
       return alert(`${data.name} is already in contacts.`);
     }
-    setContacts([...contacts, data]);
+    setContacts(state=>[...state, data]);
   };
 
   useEffect(() => {
