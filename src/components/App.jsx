@@ -9,9 +9,8 @@ import Filter from './Filter';
 const LS_KEY = 'contacts';
 
 const App = () => {
-  const contactsLS = JSON.parse(window.localStorage.getItem(LS_KEY));
-
   const [contacts, setContacts] = useState(() => {
+    const contactsLS = JSON.parse(window.localStorage.getItem(LS_KEY));
     return contactsLS ?? [];
   });
   const [filter, setFilter] = useState('');
@@ -37,7 +36,7 @@ const App = () => {
     if (containsNamee) {
       return alert(`${data.name} is already in contacts.`);
     }
-    setContacts(state=>[...state, data]);
+    setContacts(state => [...state, data]);
   };
 
   useEffect(() => {
