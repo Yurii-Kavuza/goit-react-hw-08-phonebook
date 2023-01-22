@@ -2,16 +2,39 @@ import React from 'react';
 import { Formik, Field, ErrorMessage } from 'formik';
 import * as yup from 'yup';
 import { Button, Label, FormBox } from './ContactForm.styled';
+import { useDispatch, useSelector } from 'react-redux';
+import { getContacts } from 'redux/selectors';
+import { addContact } from 'redux/contacts/contactsSlice';
 
-const ContactForm = ({ onSubmit }) => {
+const ContactForm = () => {
   const schema = yup.object().shape({
     name: yup.string().required(),
     number: yup.number().required(),
   });
 
+  const dispatch = useDispatch();
+  const contacts = useSelector(getContacts);
+
   const initialValues = { name: '', number: '' };
   const handleSubmit = (values, { resetForm }) => {
-    onSubmit(values);
+    const { name, number } = values;
+    const isDuplicateName = contacts.find(
+      contact => contact.name.toLowerCase() === name.toLowerCase()
+    );
+
+    const isDuplicateNumber = contacts.find(
+      contact => contact.number.toLowerCase() === number.toLowerCase()
+    );
+
+    if (isDuplicateName) {
+      return alert(`${name} is already in contacts.`);
+    }
+
+    if (isDuplicateNumber) {
+      return alert(`${number} is already in contacts.`);
+    }
+
+    dispatch(addContact({ name, number }));
     resetForm();
   };
 

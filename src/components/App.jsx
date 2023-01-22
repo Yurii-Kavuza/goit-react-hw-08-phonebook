@@ -5,43 +5,7 @@ import ContactForm from './ContactForm';
 import ContactList from './ContactList';
 import Filter from './Filter';
 
-const App = () => {
-  // const [contacts, setContacts] = useState(() => {
-  //   const contactsLS = JSON.parse(window.localStorage.getItem(LS_KEY));
-  //   return contactsLS ?? [];
-  // });
-  // const filteredContacts = () => {
-  //   const normalizedFilter = filter.toLowerCase();
-  //   return contacts.filter(contact =>
-  //     contact.name.toLowerCase().includes(normalizedFilter)
-  //   );
-  // };
- 
-  
-  // const formSubmitHandler = data => {
-  //   data.id = nanoid();
-  //   const containsNamee = contacts.find(contact => contact.name === data.name);
-  //   if (containsNamee) {
-  //     return alert(`${data.name} is already in contacts.`);
-  //   }
-  //   setContacts(state => [...state, data]);
-  // };
-
-  // return (
-  //   <div>
-  //     <Section title={'Phonebook'}>
-  //       <ContactForm onSubmit={formSubmitHandler} />
-  //     </Section>
-  //     <Section title={'Contacts'}>
-  //       <Filter onFilter={onFilter} value={filter} />
-  //       <ContactList
-  //         contacts={filteredContacts()}
-  //         onDeleteContact={deleteContact}
-  //       />
-  //     </Section>
-  //   </div>
-  // );
-
+const App = () => { 
   return (
     <div>
       <Section title={'Phonebook'}>
