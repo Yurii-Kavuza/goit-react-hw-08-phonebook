@@ -10,19 +10,14 @@ const App = () => {
   //   const contactsLS = JSON.parse(window.localStorage.getItem(LS_KEY));
   //   return contactsLS ?? [];
   // });
-  // const [filter, setFilter] = useState('');
   // const filteredContacts = () => {
   //   const normalizedFilter = filter.toLowerCase();
   //   return contacts.filter(contact =>
   //     contact.name.toLowerCase().includes(normalizedFilter)
   //   );
   // };
-  // const deleteContact = dataId => {
-  //   setContacts(contacts.filter(contact => contact.id !== dataId));
-  // };
-  // const onFilter = e => {
-  //   setFilter(e.currentTarget.value);
-  // };
+ 
+  
   // const formSubmitHandler = data => {
   //   data.id = nanoid();
   //   const containsNamee = contacts.find(contact => contact.name === data.name);
@@ -31,9 +26,7 @@ const App = () => {
   //   }
   //   setContacts(state => [...state, data]);
   // };
-  // useEffect(() => {
-  //   localStorage.setItem(LS_KEY, JSON.stringify(contacts));
-  // }, [contacts]);
+
   // return (
   //   <div>
   //     <Section title={'Phonebook'}>
