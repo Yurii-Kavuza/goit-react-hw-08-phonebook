@@ -2,28 +2,26 @@ import React from 'react';
 import { Formik, Field, ErrorMessage } from 'formik';
 import * as yup from 'yup';
 import { Button, Label, FormBox } from './ContactForm.styled';
-import { useDispatch, useSelector } from 'react-redux';
-import { getContacts } from 'redux/selectors';
-import { addContact } from 'redux/contacts/contactsSlice';
+import { useAddContactMutation, useFetchContactsQuery } from 'redux/contacts/contactsSlice';
 
 const ContactForm = () => {
   const schema = yup.object().shape({
     name: yup.string().required(),
-    number: yup.number().required(),
+    phone: yup.number().required(),
   });
 
-  const dispatch = useDispatch();
-  const contacts = useSelector(getContacts);
+  const { data : contacts} = useFetchContactsQuery();
+  const [ addContact] = useAddContactMutation();
 
-  const initialValues = { name: '', number: '' };
-  const handleSubmit = (values, { resetForm }) => {
-    const { name, number } = values;
+  const initialValues = { name: '', phone: '' };
+  const handleAddContact = async (values, { resetForm }) => {
+    const { name, phone } = values;
     const isDuplicateName = contacts.find(
       contact => contact.name.toLowerCase() === name.toLowerCase()
     );
 
     const isDuplicateNumber = contacts.find(
-      contact => contact.number.toLowerCase() === number.toLowerCase()
+      contact => contact.phone.toLowerCase() === phone.toLowerCase()
     );
 
     if (isDuplicateName) {
@@ -31,17 +29,18 @@ const ContactForm = () => {
     }
 
     if (isDuplicateNumber) {
-      return alert(`${number} is already in contacts.`);
+      return alert(`${phone} is already in contacts.`);
     }
 
-    dispatch(addContact({ name, number }));
+    console.log(`Name is ${name} and phone number is ${phone}`);
+    await addContact({ name, phone });
     resetForm();
   };
 
   return (
     <Formik
       initialValues={initialValues}
-      onSubmit={handleSubmit}
+      onSubmit={handleAddContact}
       validationSchema={schema}
     >
       <FormBox>
@@ -60,12 +59,12 @@ const ContactForm = () => {
           Number
           <Field
             type="tel"
-            name="number"
+            name="phone"
             pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
             title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
             required
           />
-          <ErrorMessage name="number" />
+          <ErrorMessage name="phone" />
         </Label>
         <Button type="submit">Add contact</Button>
       </FormBox>

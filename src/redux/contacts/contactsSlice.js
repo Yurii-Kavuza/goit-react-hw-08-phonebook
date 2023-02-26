@@ -1,37 +1,63 @@
-import { createSlice, nanoid } from '@reduxjs/toolkit';
+import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 
-const contactsInitialState = [
-  { id: 'id-1', name: 'Rosie Simpson', number: '459-12-56' },
-  { id: 'id-2', name: 'Hermione Kline', number: '443-89-12' },
-  { id: 'id-3', name: 'Eden Clements', number: '645-17-79' },
-  { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
-];
+export const contactsApi = createApi({
+  reducerPath: 'contacts', // key in state
+  baseQuery: fetchBaseQuery({ baseUrl: 'https://63fa83cfbeec322c57f469a3.mockapi.io' }),
+  tagTypes: ['Contact'],
+  endpoints: (builder) => ({
+    fetchContacts: builder.query({
+      query: () => `/contacts`,
+      providesTags: ['Contact'],
+    }),
+    addContact: builder.mutation({
+      query: values => ({
+        url: `/contacts`,
+        method: "POST",
+        body: values,
+      }),
+      invalidatesTags: ['Contact'],
+    }),
+    deleteContact: builder.mutation({
+      query: id => ({
+        url: `/contacts/${id}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: ['Contact'],
+    }),
+  }),
+})
 
-const contactsSlice = createSlice({
-  name: 'contacts',
-  initialState: contactsInitialState,
-  reducers: {
-    addContact: {
-      reducer(state, action) {
-        state.push(action.payload);
-      },
-      prepare(values) {
-        const { name, number } = values;
-        return {
-          payload: {
-            name,
-            number,
-            id: nanoid(),
-          },
-        };
-      },
-    },
-    deleteContact(state, action) {
-      return state.filter(contact => contact.id !== action.payload);
-    },
-  },
-});
+export const { 
+  useFetchContactsQuery,
+  useAddContactMutation,
+  useDeleteContactMutation
+} = contactsApi;
 
-export const contactsReducer = contactsSlice.reducer;
+// const contactsSlice = createSlice({
+//   name: 'contacts',
+//   initialState: contactsInitialState,
+//   reducers: {
+//     addContact: {
+//       reducer(state, action) {
+//         state.push(action.payload);
+//       },
+//       prepare(values) {
+//         const { name, number } = values;
+//         return {
+//           payload: {
+//             name,
+//             number,
+//             id: nanoid(),
+//           },
+//         };
+//       },
+//     },
+//     deleteContact(state, action) {
+//       return state.filter(contact => contact.id !== action.payload);
+//     },
+//   },
+// });
 
-export const { addContact, deleteContact } = contactsSlice.actions;
+// export const contactsReducer = contactsSlice.reducer;
+
+// export const { addContact, deleteContact } = contactsSlice.actions;

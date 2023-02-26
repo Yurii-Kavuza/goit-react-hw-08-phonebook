@@ -1,18 +1,20 @@
 import PropTypes from 'prop-types';
-import { useDispatch, useSelector } from 'react-redux';
-import { deleteContact } from 'redux/contacts/contactsSlice';
-import { getContacts, getFilter } from 'redux/selectors';
+import { useSelector } from 'react-redux';
+import { useDeleteContactMutation, useFetchContactsQuery } from 'redux/contacts/contactsSlice';
+import { getFilter } from 'redux/selectors';
 import { Button, ListItem } from './ContactList.styled';
 
 const ContactList = () => {
-  const contacts = useSelector(getContacts);
+  const { data, error, isLoading } = useFetchContactsQuery();
+  const [deleteContact, result] = useDeleteContactMutation();
+      
+  const contacts = data;
   const filter = useSelector(getFilter);
-  const dispatch = useDispatch();
 
   const normalizedFilter = filter.toLowerCase();
 
   const filteredContacts = () => {   
-    return contacts.filter(contact =>
+    return contacts?.filter(contact =>
       contact.name.toLowerCase().includes(normalizedFilter)
     );
   };
@@ -20,16 +22,28 @@ const ContactList = () => {
   const visibleContacts = filteredContacts();
 
   return (
-    <ul>
-      {visibleContacts.map(({ id, name, number }) => {
+    <>
+    {error && (<p>
+      Something went wrong!
+    </p>)}
+    {isLoading ? (
+      <p>Contacts are loading...</p>
+    ) : (
+      <ul>
+      {visibleContacts.map(({ id, name, phone }) => {
         return (
           <ListItem key={id}>
-            {name}: {number}
-            <Button onClick={() => dispatch(deleteContact(id))}>Delete</Button>
+            {name}: {phone}
+            <Button onClick={
+              () =>  deleteContact(id)
+              } disabled={result.isLoading}>Delete</Button>
           </ListItem>
         );
       })}
     </ul>
+    )}
+    </>
+    
   );
 };
 
@@ -38,7 +52,7 @@ ContactList.propTypes = {
     PropTypes.shape({
       id: PropTypes.string.isRequired,
       name: PropTypes.string.isRequired,
-      number: PropTypes.string.isRequired,
+      phone: PropTypes.string.isRequired,
     })
   ),
 };
