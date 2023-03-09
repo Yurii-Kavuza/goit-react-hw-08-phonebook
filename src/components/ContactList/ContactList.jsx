@@ -1,7 +1,9 @@
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 import { useDeleteContactMutation, useFetchContactsQuery } from 'redux/contacts/contactsSlice';
-import { getFilter } from 'redux/selectors';
+import { selectVisibleContacts } from 'redux/contacts/selectors';
+import { selectFilter } from 'redux/filter/selectors';
+
 import { Button, ListItem } from './ContactList.styled';
 
 const ContactList = () => {
@@ -9,17 +11,7 @@ const ContactList = () => {
   const [deleteContact, result] = useDeleteContactMutation();
       
   const contacts = data;
-  const filter = useSelector(getFilter);
-
-  const normalizedFilter = filter.toLowerCase();
-
-  const filteredContacts = () => {   
-    return contacts?.filter(contact =>
-      contact.name.toLowerCase().includes(normalizedFilter)
-    );
-  };
-
-  const visibleContacts = filteredContacts();
+  const visibleContacts = useSelector(selectVisibleContacts);
 
   return (
     <>
