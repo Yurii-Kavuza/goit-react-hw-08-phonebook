@@ -3,10 +3,6 @@ import { Formik, Field, ErrorMessage } from 'formik';
 import * as yup from 'yup';
 import { Button, Label, FormBox } from './ContactForm.styled';
 import { addContact } from 'redux/contacts/operations';
-import {
-  useAddContactMutation,
-  useFetchContactsQuery,
-} from 'redux/contacts/contactsSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectAllContacts } from 'redux/contacts/selectors';
 
