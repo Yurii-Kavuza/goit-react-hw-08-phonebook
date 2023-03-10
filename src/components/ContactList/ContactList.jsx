@@ -16,7 +16,7 @@ const ContactList = () => {
           return (
             <ListItem key={id}>
               {name}: {number}
-              <Button onClick={handleDeleteContact(id)}>Delete</Button>
+              <Button onClick={()=>handleDeleteContact(id)}>Delete</Button>
             </ListItem>
           );
         })}
