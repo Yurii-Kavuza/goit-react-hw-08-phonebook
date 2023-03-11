@@ -2,14 +2,14 @@ import React from 'react';
 import { addContact } from 'redux/contacts/operations';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectAllContacts } from 'redux/contacts/selectors';
-import { Input, Button, Flex } from '@chakra-ui/react';
+import { Input, Button } from '@chakra-ui/react';
 import { Form, Label } from '../CommonStyles/CommonStyles';
 
 const ContactForm = () => {
   const dispatch = useDispatch();
   const contacts = useSelector(selectAllContacts);
 
-  const initialValues = { name: '', number: '' };
+  // const initialValues = { name: '', number: '' };
   const handleAddContact = async (values, { resetForm }) => {
     const { name, number } = values;
     const isDuplicateName = contacts.find(
