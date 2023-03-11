@@ -3,11 +3,13 @@ import styled from '@emotion/styled';
 export const Part = styled.div`
   display: flex;
   flex-direction: column;
-  gap: ${p => p.theme.space[4]}px;
+  gap: 16px;
 
   :not(:last-child) {
-    margin-bottom: ${p => p.theme.space[5]}px;
+    margin-bottom: 32px;
   }
 `;
 
-export const Title = styled.h2``;
+export const Title = styled.h2`
+  font-weight: bold;
+`;

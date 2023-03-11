@@ -52,17 +52,6 @@ const App = () => {
       </Route>
     </Routes>
   );
-  // (
-  //   <div>
-  //     <Section title={'Phonebook'}>
-  //       <ContactForm />
-  //     </Section>
-  //     <Section title={'Contacts'}>
-  //       <Filter />
-  //       <ContactList />
-  //     </Section>
-  //   </div>
-  // );
 };
 
 App.propTypes = {

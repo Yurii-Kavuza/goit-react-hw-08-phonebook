@@ -1,17 +1,11 @@
 import React from 'react';
-import { Formik, Field, ErrorMessage } from 'formik';
-import * as yup from 'yup';
-import { Button, Label, FormBox } from './ContactForm.styled';
 import { addContact } from 'redux/contacts/operations';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectAllContacts } from 'redux/contacts/selectors';
+import { Input, Button, Flex } from '@chakra-ui/react';
+import { Form, Label } from '../CommonStyles/CommonStyles';
 
 const ContactForm = () => {
-  const schema = yup.object().shape({
-    name: yup.string().required(),
-    number: yup.number().required(),
-  });
-
   const dispatch = useDispatch();
   const contacts = useSelector(selectAllContacts);
 
@@ -40,37 +34,72 @@ const ContactForm = () => {
   };
 
   return (
-    <Formik
-      initialValues={initialValues}
-      onSubmit={handleAddContact}
-      validationSchema={schema}
-    >
-      <FormBox>
+    <>
+      <Form onSubmit={handleAddContact} autoComplete="off">
         <Label>
           Name
-          <Field
+          <Input
+            variant="outline"
             type="text"
             name="name"
             pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
             title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
             required
           />
-          <ErrorMessage name="name" />
         </Label>
         <Label>
           Number
-          <Field
+          <Input
+            variant="outline"
             type="tel"
             name="number"
             pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
             title="Number number must be digits and can contain spaces, dashes, parentheses and can start with +"
             required
           />
-          <ErrorMessage name="number" />
         </Label>
-        <Button type="submit">Add contact</Button>
-      </FormBox>
-    </Formik>
+        <Button type="submit" colorScheme="teal" variant="solid">
+          Add contact
+        </Button>
+      </Form>
+      {/* <Formik
+        initialValues={initialValues}
+        onSubmit={handleAddContact}
+        validationSchema={schema}
+      >
+        <Flex direction="column" width="400px" gap="15px">
+          <Label>
+            Name
+            <Field
+              as={Input}
+              variant="outline"
+              type="text"
+              name="name"
+              pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
+              title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
+              required
+            />
+            <ErrorMessage name="name" />
+          </Label>
+          <Label>
+            Number
+            <Field
+              as={Input}
+              variant="outline"
+              type="tel"
+              name="number"
+              pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
+              title="Number number must be digits and can contain spaces, dashes, parentheses and can start with +"
+              required
+            />
+            <ErrorMessage name="number" />
+          </Label>
+          <Button type="submit" colorScheme="teal" variant="solid">
+            Add contact
+          </Button>
+        </Flex>
+      </Formik> */}
+    </>
   );
 };
 

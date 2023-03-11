@@ -21,7 +21,7 @@ export default function Contacts() {
       <Helmet>
         <title>Your contacts</title>
       </Helmet>
-      <Section title={'Phonebook'}>
+      <Section title={'Add new contact'}>
         <ContactForm />
       </Section>
       <Section title={'Contacts'}>

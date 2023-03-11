@@ -1,13 +1,15 @@
 import styled from '@emotion/styled';
 
 export const ListItem = styled.li`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   list-style: inside;
-  padding-left: ${p => p.theme.space[5]}px;
+  padding-left: 16px;
   :not(:last-child) {
-    margin-bottom: ${p => p.theme.space[4]}px;
+    margin-bottom: 8px;
   }
-`;
-
-export const Button = styled.button`
-  margin-left: ${p => p.theme.space[4]}px;
+  :nth-of-type(2n) {
+    background-color: #f3f6f9;
+  }
 `;
