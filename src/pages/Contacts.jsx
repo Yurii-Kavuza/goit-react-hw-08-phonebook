@@ -10,7 +10,6 @@ import Filter from 'components/Filter';
 
 export default function Contacts() {
   const dispatch = useDispatch();
-  const isLoading = useSelector(selectLoading);
 
   useEffect(() => {
     dispatch(fetchContacts());
@@ -26,7 +25,6 @@ export default function Contacts() {
       </Section>
       <Section title={'Contacts'}>
         <Filter />
-        <div>{isLoading && 'Request in progress...'}</div>
         <ContactList />
       </Section>
     </>
